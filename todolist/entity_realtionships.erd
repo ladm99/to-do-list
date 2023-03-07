@@ -1,0 +1,18 @@
+erdiagram Model
+
+notation=crowsfoot
+entity Person {
+   id: Long key
+	name: String
+}
+
+entity Task {
+   id: Long key
+	description: String
+	finished: boolean
+	personId: Long
+}
+
+relationship oneToMany {
+   Person[1] -> Task[N]
+}
