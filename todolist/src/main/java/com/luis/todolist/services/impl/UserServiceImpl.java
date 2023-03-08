@@ -9,6 +9,8 @@ import com.luis.todolist.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -20,5 +22,11 @@ public class UserServiceImpl implements UserService {
         User userToAdd = new User();
         userToAdd.setName(userRequestDTO.getName());
         return userMapper.entityToDTO(userRepository.saveAndFlush(userToAdd));
+    }
+
+    @Override
+    public List<UserResponseDTO> getUsers() {
+        List<User> users = userRepository.findAll();
+        return userMapper.entitiesToDTOs(users);
     }
 }
