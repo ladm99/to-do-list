@@ -19,4 +19,7 @@ public class TaskController {
 
     @PostMapping
     public TaskResponseDTO createTask(@RequestBody TaskRequestDTO taskRequestDTO){return taskService.createTask(taskRequestDTO);}
+
+    @PatchMapping("/{id}")
+    public TaskResponseDTO updateTask(@PathVariable Long id, @RequestBody TaskRequestDTO taskRequestDTO){return taskService.updateTask(id, taskRequestDTO);}
 }
