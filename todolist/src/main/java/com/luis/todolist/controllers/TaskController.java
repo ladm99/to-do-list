@@ -22,4 +22,8 @@ public class TaskController {
 
     @PatchMapping("/{id}")
     public TaskResponseDTO updateTask(@PathVariable Long id, @RequestBody TaskRequestDTO taskRequestDTO){return taskService.updateTask(id, taskRequestDTO);}
+
+    @GetMapping("/user/{id}")
+    public List<TaskResponseDTO> getTasksByUserId(@PathVariable Long id){return taskService.getTasksByUserId(id);}
+
 }

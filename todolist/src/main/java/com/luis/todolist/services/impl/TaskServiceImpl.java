@@ -55,4 +55,15 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.saveAndFlush(task.get());
         return taskMapper.entityToDTO(task.get());
     }
+
+    @Override
+    public List<TaskResponseDTO> getTasksByUserId(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if(user.isEmpty())
+            throw new BadRequestException("User does not exist");
+
+        List<Task> tasks = user.get().getTasks();
+        return taskMapper.entitiesToDTOs(tasks);
+    }
 }
