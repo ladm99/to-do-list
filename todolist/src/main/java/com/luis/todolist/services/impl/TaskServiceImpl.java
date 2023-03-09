@@ -10,8 +10,11 @@ import com.luis.todolist.repositories.TaskRepository;
 import com.luis.todolist.repositories.UserRepository;
 import com.luis.todolist.services.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskResponseDTO> getTasks() {
-        List<Task> tasks = taskRepository.findAll();
+        List<Task> tasks = taskRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return taskMapper.entitiesToDTOs(tasks);
     }
 
@@ -64,6 +67,18 @@ public class TaskServiceImpl implements TaskService {
             throw new BadRequestException("User does not exist");
 
         List<Task> tasks = user.get().getTasks();
+        tasks.sort(Comparator.comparing(Task::getId));
         return taskMapper.entitiesToDTOs(tasks);
+    }
+
+    @Override
+    public TaskResponseDTO deleteTask(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+        if(task.isEmpty())
+            throw new BadRequestException("Task with id: " + id + " does not exist");
+
+        taskRepository.deleteById(id);
+
+        return taskMapper.entityToDTO(task.get());
     }
 }

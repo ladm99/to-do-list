@@ -26,4 +26,7 @@ public class TaskController {
     @GetMapping("/user/{id}")
     public List<TaskResponseDTO> getTasksByUserId(@PathVariable Long id){return taskService.getTasksByUserId(id);}
 
+    @DeleteMapping("/{id}")
+    public TaskResponseDTO deleteTask(@PathVariable Long id){return taskService.deleteTask(id);}
+
 }
