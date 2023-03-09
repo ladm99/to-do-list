@@ -9,5 +9,4 @@ public class TaskResponseDTO {
     private Long id;
     private String description;
     private boolean finished;
-    private UserResponseDTO user;
 }

@@ -30,4 +30,8 @@ public class UserController {
     public UserResponseDTO createUser(@RequestBody UserRequestDTO userRequestDTO){
         return userService.createUser(userRequestDTO);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponseDTO deleteUserById(@PathVariable Long id){return userService.deleteUserById(id);}
 }

@@ -39,4 +39,13 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("User with id: " + id + " does not exist");
         return userMapper.entityToDTO(user.get());
     }
+
+    @Override
+    public UserResponseDTO deleteUserById(Long id) {
+        Optional<User> userToDelete = userRepository.findById(id);
+        if(userToDelete.isEmpty())
+            throw new BadRequestException("User with id: " + id + " does not exist");
+        userRepository.delete(userToDelete.get());
+        return userMapper.entityToDTO(userToDelete.get());
+    }
 }
