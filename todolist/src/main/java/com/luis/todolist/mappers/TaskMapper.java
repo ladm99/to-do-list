@@ -11,7 +11,7 @@ import java.util.List;
 public interface TaskMapper {
     Task dtoToEntity(TaskRequestDTO taskRequestDTO);
 
-    TaskResponseDTO entitiesToDTO(List<Task> tasks);
+    List<TaskResponseDTO> entitiesToDTO(List<Task> tasks);
 
     List<Task> dtosToEntities(List<TaskResponseDTO> taskResponseDTOs);
 }
